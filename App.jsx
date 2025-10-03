@@ -1,0 +1,103 @@
+import * as React from 'react';
+import {View, Text, StyleSheet} from 'react-native';
+import RNBootSplash from 'react-native-bootsplash';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import OnboardingScreen from './src/onboarding/Onboarding';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import SignIn from './src/screens/SignIn';
+import {enableScreens} from 'react-native-screens';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+
+enableScreens(true);
+
+const App = () => {
+  const [loading, setLoading] = React.useState(true);
+  const [hasSeenOnboarding, setHasSeenOnboarding] = React.useState(false);
+  const Stack = createNativeStackNavigator();
+  const ONBOARDING_VERSION = '2';
+  const SEEN_KEY = 'hasSeenOnboarding';
+  const VERSION_KEY = 'onboarding_version';
+
+  React.useEffect(() => {
+    const init = async () => {
+      try {
+        const [seen, version] = await Promise.all([
+          AsyncStorage.getItem(SEEN_KEY),
+          AsyncStorage.getItem(VERSION_KEY),
+        ]);
+
+        if (version !== ONBOARDING_VERSION) {
+          // New onboarding content/version: show it once
+          await AsyncStorage.setItem(VERSION_KEY, ONBOARDING_VERSION);
+          await AsyncStorage.removeItem(SEEN_KEY);
+          setHasSeenOnboarding(false);
+        } else {
+          setHasSeenOnboarding(seen === 'true');
+        }
+      } catch (e) {
+        // ignore
+      } finally {
+        setLoading(false);
+        RNBootSplash.hide({fade: true});
+      }
+    };
+    init();
+  }, []);
+
+  const handleOnboardingDone = async (navigation) => {
+    try {
+      await AsyncStorage.setItem(SEEN_KEY, 'true');
+    } catch (e) {
+      // ignore
+    }
+    setHasSeenOnboarding(true);
+    navigation.replace('Home');
+  };
+
+  const handleSignIn = (navigation) => {
+    navigation.navigate('SignIn');
+  };
+  if (loading) {
+    return null;
+  }
+
+  return (
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName={'Onboarding'}
+          screenOptions={{headerShown: false}}>
+          <Stack.Screen name="Onboarding">
+            {({navigation}) => (
+              <OnboardingScreen
+                onSkip={() => handleOnboardingDone(navigation)}
+                onDone={() => handleOnboardingDone(navigation)}
+                onSignIn={() => handleSignIn(navigation)}
+              />
+            )}
+          </Stack.Screen>
+          <Stack.Screen name="Home">
+            {() => (
+              <View style={styles.container}>
+                <Text style={styles.text}>Hello World</Text>
+              </View>
+            )}
+          </Stack.Screen>
+          <Stack.Screen
+            name="SignIn"
+            component={SignIn}
+            options={{headerShown: true, title: 'Sign In', headerTintColor: '#54408C'}}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaProvider>
+  );
+}
+;
+
+const styles = StyleSheet.create({
+  container: {flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff'},
+  text: {fontSize: 20, fontWeight: 'bold', color: '#000'},
+});
+export default App;

@@ -1,0 +1,6 @@
+{
+    "logo": "assets/logo.png",
+    "background": "#54408C",
+    "logoWidth": 200,
+    "platforms": ["android"]
+  }
