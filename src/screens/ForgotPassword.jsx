@@ -1,23 +1,19 @@
 import React from 'react';
-import {Text, StyleSheet, TextInput, TouchableOpacity, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {Text, StyleSheet, TextInput, TouchableOpacity, View} from 'react-native';
 
-const SignIn = ({navigation}) => {
+const ForgotPassword = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Sign In</Text>
+      <Text style={styles.title}>Forgot Password</Text>
+      <Text style={styles.subtitle}>Enter your email to receive a verification code.</Text>
       <TextInput style={styles.input} placeholder="Email" keyboardType="email-address" autoCapitalize="none" />
-      <TextInput style={styles.input} placeholder="Password" secureTextEntry />
-      <TouchableOpacity style={styles.button} onPress={() => navigation.replace('Home')}>
-        <Text style={styles.buttonText}>Sign In</Text>
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Verification')}>
+        <Text style={styles.buttonText}>Send Code</Text>
       </TouchableOpacity>
       <View style={{height: 12}} />
-      <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
-        <Text style={styles.link}>Forgot Password?</Text>
-      </TouchableOpacity>
-      <View style={{height: 8}} />
-      <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-        <Text style={styles.link}>Create an account</Text>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+        <Text style={styles.link}>Back to Sign In</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
@@ -25,7 +21,8 @@ const SignIn = ({navigation}) => {
 
 const styles = StyleSheet.create({
   container: {flex: 1, paddingTop: 16, paddingHorizontal: 24, backgroundColor: '#FFFFFF', justifyContent: 'center'},
-  title: {fontSize: 28, fontWeight: 'bold', color: '#1A1A1A', marginBottom: 16, textAlign: 'center'},
+  title: {fontSize: 28, fontWeight: 'bold', color: '#1A1A1A', marginBottom: 8, textAlign: 'center'},
+  subtitle: {fontSize: 14, color: '#6B6B6B', marginBottom: 12, textAlign: 'center'},
   input: {
     borderWidth: 1,
     borderColor: '#DDD',
@@ -46,4 +43,4 @@ const styles = StyleSheet.create({
   link: {color: '#54408C', textAlign: 'center', fontWeight: '600'},
 });
 
-export default SignIn;
+export default ForgotPassword;

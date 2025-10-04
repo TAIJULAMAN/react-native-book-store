@@ -1,23 +1,20 @@
 import React from 'react';
-import {Text, StyleSheet, TextInput, TouchableOpacity, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {Text, StyleSheet, TextInput, TouchableOpacity, View} from 'react-native';
 
-const SignIn = ({navigation}) => {
+const SignUp = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Sign In</Text>
+      <Text style={styles.title}>Create Account</Text>
+      <TextInput style={styles.input} placeholder="Name" />
       <TextInput style={styles.input} placeholder="Email" keyboardType="email-address" autoCapitalize="none" />
       <TextInput style={styles.input} placeholder="Password" secureTextEntry />
-      <TouchableOpacity style={styles.button} onPress={() => navigation.replace('Home')}>
-        <Text style={styles.buttonText}>Sign In</Text>
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Congratulations') }>
+        <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
       <View style={{height: 12}} />
-      <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
-        <Text style={styles.link}>Forgot Password?</Text>
-      </TouchableOpacity>
-      <View style={{height: 8}} />
-      <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-        <Text style={styles.link}>Create an account</Text>
+      <TouchableOpacity onPress={() => navigation.replace('SignIn')}>
+        <Text style={styles.link}>Already have an account? Sign In</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
@@ -46,4 +43,4 @@ const styles = StyleSheet.create({
   link: {color: '#54408C', textAlign: 'center', fontWeight: '600'},
 });
 
-export default SignIn;
+export default SignUp;
