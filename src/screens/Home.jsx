@@ -1,10 +1,10 @@
-import React, {useMemo, useState, useCallback} from 'react';
+import React, {useMemo} from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, useWindowDimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import OfferSlider from '../components/OfferSlider';
+import TopOfWeek from '../components/TopOfWeek';
 
 const Home = ({ navigation }) => {
-  const {width} = useWindowDimensions();
-  const [active, setActive] = useState(0);
   const offers = useMemo(() => ([
     {
       id: '1',
@@ -26,11 +26,14 @@ const Home = ({ navigation }) => {
     },
   ]), []);
 
-  const handleScroll = useCallback((e) => {
-    const x = e.nativeEvent.contentOffset.x;
-    const i = Math.round(x / width);
-    if (i !== active) setActive(i);
-  }, [width, active]);
+  const topOfWeek = useMemo(() => ([
+    { id: 't1', title: 'The Kite Runner', price: 14.99, image: require('../../assets/b1.png') },
+    { id: 't2', title: 'The Subtle Art...', price: 20.99, image: require('../../assets/b2.png') },
+    { id: 't3', title: 'The Kite Runner', price: 14.99, image: require('../../assets/b3.png') },
+    { id: 't4', title: 'Atomic Habits', price: 18.49, image: require('../../assets/b4.png') },
+    { id: 't5', title: 'Hooked', price: 16.00, image: require('../../assets/b5.png') },
+    { id: 't6', title: 'Deep Work', price: 19.50, image: require('../../assets/b6.png') },
+  ]), []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -46,41 +49,10 @@ const Home = ({ navigation }) => {
       </View>
 
       {/* Special Offer Slider */}
-      <View style={styles.sliderContainer}>
-        <ScrollView
-          horizontal
-          pagingEnabled
-          showsHorizontalScrollIndicator={false}
-          onScroll={handleScroll}
-          scrollEventThrottle={16}
-        >
-          {offers.map((card) => (
-            <View key={card.id} style={{width}}>
-              <View style={styles.offerCard}>
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.offerTitle}>{card.title}</Text>
-                  <Text style={styles.offerSubtitle}>{card.subtitle}</Text>
-                  <TouchableOpacity style={styles.orderBtn} onPress={() => {}}>
-                    <Text style={styles.orderBtnText}>Order Now</Text>
-                  </TouchableOpacity>
-                </View>
-                <Image
-                  source={card.image}
-                  style={styles.offerImage}
-                  resizeMode="cover"
-                />
-              </View>
-            </View>
-          ))}
-        </ScrollView>
+      <OfferSlider offers={offers} />
 
-        {/* Pagination dots overlay */}
-        <View style={styles.dotsOverlay} pointerEvents="none">
-          {offers.map((_, i) => (
-            <View key={i} style={[styles.dot, i === active && styles.dotActive]} />
-          ))}
-        </View>
-      </View>
+      {/* Top of Week */}
+      <TopOfWeek items={topOfWeek} onSeeAll={() => {}} />
     </SafeAreaView>
   );
 };
@@ -150,6 +122,28 @@ const styles = StyleSheet.create({
     marginHorizontal: 3,
   },
   dotActive: { backgroundColor: '#6B58B8' },
+
+  // Top of Week styles
+  sectionHeader: {
+    marginTop: 16,
+    paddingHorizontal: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  sectionTitle: { fontSize: 18, fontWeight: '800', color: '#1A1A1A' },
+  seeAll: { color: '#54408C', fontWeight: '700' },
+  bookCard: {
+    width: 128,
+    marginHorizontal: 4,
+    paddingHorizontal: 4,
+  },
+  bookImage: { width: 128, height: 160, borderRadius: 10, backgroundColor: '#EEE' },
+  bookTitle: { marginTop: 8, color: '#1A1A1A', fontWeight: '600' },
+  bookPrice: { marginTop: 4, color: '#54408C', fontWeight: '700' },
+  dotsRowSmall: { flexDirection: 'row', justifyContent: 'center', marginTop: 8 },
+  dotSmall: { width: 5, height: 5, borderRadius: 2.5, backgroundColor: '#D6CFF0', marginHorizontal: 3 },
+  dotSmallActive: { backgroundColor: '#6B58B8' },
 });
 
 export default Home;
