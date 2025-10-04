@@ -13,6 +13,7 @@ import ResetPassword from './src/screens/ResetPassword';
 import Congratulations from './src/screens/Congratulations';
 import {enableScreens} from 'react-native-screens';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import Home from './src/screens/Home';
 
 enableScreens(true);
 
@@ -82,13 +83,7 @@ const App = () => {
               />
             )}
           </Stack.Screen>
-          <Stack.Screen name="Home">
-            {() => (
-              <View style={styles.container}>
-                <Text style={styles.text}>Hello World</Text>
-              </View>
-            )}
-          </Stack.Screen>
+          <Stack.Screen name="Home" component={Home} />
           <Stack.Screen
             name="SignIn"
             component={SignIn}
