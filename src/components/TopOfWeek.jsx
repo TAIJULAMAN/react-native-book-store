@@ -16,6 +16,7 @@ const TopOfWeek = ({items = [], onSeeAll}) => {
         </TouchableOpacity>
       </View>
       <FlatList
+        style={{marginTop: 16}}
         data={items}
         keyExtractor={(item) => item.id}
         horizontal
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
   bookImage: { width: 128, height: 160, borderRadius: 10, backgroundColor: '#EEE' },
   bookTitle: { marginTop: 8, color: '#1A1A1A', fontWeight: '600' },
   bookPrice: { marginTop: 4, color: '#54408C', fontWeight: '700' },
-  dotsRowSmall: { flexDirection: 'row', justifyContent: 'center', marginTop: 8 },
+  dotsRowSmall: { flexDirection: 'row', justifyContent: 'center', marginTop: 12 },
   dotSmall: { width: 5, height: 5, borderRadius: 2.5, backgroundColor: '#D6CFF0', marginHorizontal: 3 },
   dotSmallActive: { backgroundColor: '#6B58B8' },
 });

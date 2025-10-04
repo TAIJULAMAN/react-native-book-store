@@ -1,39 +1,11 @@
-import React, {useMemo} from 'react';
+import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import OfferSlider from '../components/OfferSlider';
 import TopOfWeek from '../components/TopOfWeek';
+import {offers, topOfWeek} from '../data/homeData';
 
 const Home = ({ navigation }) => {
-  const offers = useMemo(() => ([
-    {
-      id: '1',
-      title: 'Special Offer',
-      subtitle: 'Discount 25%',
-      image: require('../../assets/b1.png'),
-    },
-    {
-      id: '2',
-      title: 'New Arrivals',
-      subtitle: 'Latest Books',
-      image: require('../../assets/b2.png'),
-    },
-    {
-      id: '3',
-      title: 'Editor\'s Pick',
-      subtitle: 'Top Rated',
-      image: require('../../assets/b3.png'),
-    },
-  ]), []);
-
-  const topOfWeek = useMemo(() => ([
-    { id: 't1', title: 'The Kite Runner', price: 14.99, image: require('../../assets/b1.png') },
-    { id: 't2', title: 'The Subtle Art...', price: 20.99, image: require('../../assets/b2.png') },
-    { id: 't3', title: 'The Kite Runner', price: 14.99, image: require('../../assets/b3.png') },
-    { id: 't4', title: 'Atomic Habits', price: 18.49, image: require('../../assets/b4.png') },
-    { id: 't5', title: 'Hooked', price: 16.00, image: require('../../assets/b5.png') },
-    { id: 't6', title: 'Deep Work', price: 19.50, image: require('../../assets/b6.png') },
-  ]), []);
 
   return (
     <SafeAreaView style={styles.container}>
