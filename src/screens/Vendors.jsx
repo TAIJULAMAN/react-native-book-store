@@ -105,19 +105,15 @@ const Vendors = ({ navigation }) => {
           marginBottom: 14,
         }}
         renderItem={({ item }) => (
-          <View style={styles.cardWrap}>
-            <View style={styles.logoCard}>
-              <Image
-                source={item.logo}
-                style={styles.logo}
-                resizeMode="contain"
-              />
+          <TouchableOpacity activeOpacity={0.8} onPress={() => navigation?.navigate?.('VendorDetails', { vendor: item })}>
+            <View style={styles.cardWrap}>
+              <View style={styles.logoCard}>
+                <Image source={item.logo} style={styles.logo} resizeMode="contain" />
+              </View>
+              <Text style={styles.name} numberOfLines={1}>{item.name}</Text>
+              {renderStars(item.rating)}
             </View>
-            <Text style={styles.name} numberOfLines={1}>
-              {item.name}
-            </Text>
-            {renderStars(item.rating)}
-          </View>
+          </TouchableOpacity>
         )}
         ListEmptyComponent={() => (
           <View style={styles.empty}>

@@ -31,6 +31,7 @@ const Home = ({ navigation }) => {
         <TopOfWeek
           items={topOfWeek}
           onSeeAll={() => navigation.navigate('Home')}
+          onItemPress={(book) => navigation.navigate('BookDetails', { book })}
         />
       </View>
       {/* Best Vendors */}

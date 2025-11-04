@@ -31,7 +31,7 @@ const Authors = ({ navigation }) => {
   }, [activeTab]);
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity activeOpacity={0.7}>
+    <TouchableOpacity activeOpacity={0.7} onPress={() => navigation?.navigate?.('AuthorDetails', { author: item })}>
       <View style={styles.row}>
         <Image source={item.avatar} style={styles.avatar} />
         <View style={styles.info}>

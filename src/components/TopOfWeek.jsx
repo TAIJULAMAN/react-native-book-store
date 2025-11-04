@@ -1,7 +1,7 @@
 import React, {useMemo, useState} from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity, FlatList} from 'react-native';
 
-const TopOfWeek = ({items = [], onSeeAll}) => {
+const TopOfWeek = ({items = [], onSeeAll, onItemPress}) => {
   const [active, setActive] = useState(0);
   const CARD_WIDTH = 128;
   const CARD_SPACING = 8; // marginHorizontal: 4 -> total step 8
@@ -32,11 +32,13 @@ const TopOfWeek = ({items = [], onSeeAll}) => {
         scrollEventThrottle={16}
         contentContainerStyle={{ paddingHorizontal: 12 }}
         renderItem={({item}) => (
-          <View style={styles.bookCard}>
-            <Image source={item.image} style={styles.bookImage} resizeMode="cover" />
-            <Text style={styles.bookTitle} numberOfLines={1}>{item.title}</Text>
-            <Text style={styles.bookPrice}>${item.price.toFixed(2)}</Text>
-          </View>
+          <TouchableOpacity activeOpacity={0.8} onPress={() => onItemPress && onItemPress(item)}>
+            <View style={styles.bookCard}>
+              <Image source={item.image} style={styles.bookImage} resizeMode="cover" />
+              <Text style={styles.bookTitle} numberOfLines={1}>{item.title}</Text>
+              <Text style={styles.bookPrice}>${item.price.toFixed(2)}</Text>
+            </View>
+          </TouchableOpacity>
         )}
       />
       {/* <View style={styles.dotsRowSmall}>

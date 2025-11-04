@@ -16,6 +16,9 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Home from './src/screens/Home';
 import VendorsScreen from './src/screens/Vendors';
 import AuthorsScreen from './src/screens/Authors';
+import AuthorDetails from './src/screens/AuthorDetails';
+import VendorDetails from './src/screens/VendorDetails';
+import BookDetails from './src/screens/BookDetails';
 
 enableScreens(true);
 
@@ -96,6 +99,21 @@ const App = () => {
             name="Authors"
             component={AuthorsScreen}
             options={{ headerShown: true, title: 'Authors', headerTintColor: '#54408C' }}
+          />
+          <Stack.Screen
+            name="AuthorDetails"
+            component={AuthorDetails}
+            options={{ headerShown: true, title: 'Author', headerTintColor: '#54408C' }}
+          />
+          <Stack.Screen
+            name="VendorDetails"
+            component={VendorDetails}
+            options={{ headerShown: true, title: 'Vendor', headerTintColor: '#54408C' }}
+          />
+          <Stack.Screen
+            name="BookDetails"
+            component={BookDetails}
+            options={{ headerShown: true, title: 'Book', headerTintColor: '#54408C' }}
           />
           <Stack.Screen
             name="SignIn"
