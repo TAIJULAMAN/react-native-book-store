@@ -5,10 +5,9 @@ import OfferSlider from '../components/OfferSlider';
 import TopOfWeek from '../components/TopOfWeek';
 import BestVendors from '../components/BestVendors';
 import Authors from '../components/Authors';
-import {offers, topOfWeek, bestVendors, authors} from '../data/homeData';
+import { offers, topOfWeek, bestVendors, authors } from '../data/homeData';
 
 const Home = ({ navigation }) => {
-
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}
@@ -23,15 +22,31 @@ const Home = ({ navigation }) => {
       </View>
 
       {/* Special Offer Slider */}
-      <OfferSlider offers={offers} />
+      <View style={{ marginTop: 16 }}>
+        <OfferSlider offers={offers} />
+      </View>
 
       {/* Top of Week */}
-      <TopOfWeek items={topOfWeek} onSeeAll={() => navigation.navigate('Home')} />
+      <View style={{ marginTop: 16 }}>
+        <TopOfWeek
+          items={topOfWeek}
+          onSeeAll={() => navigation.navigate('Home')}
+        />
+      </View>
       {/* Best Vendors */}
-      <BestVendors vendors={bestVendors} onSeeAll={() => navigation.navigate('Vendors')} />
+      <View style={{ marginTop: 16 }}>
+        <BestVendors
+          vendors={bestVendors}
+          onSeeAll={() => navigation.navigate('Vendors')}
+        />
+      </View>
       {/* Authors */}
-      <Authors authors={authors} onSeeAll={() => navigation.navigate('Authors')} />
-        
+      <View style={{ marginTop: 16 }}>
+        <Authors
+          authors={authors}
+          onSeeAll={() => navigation.navigate('Authors')}
+        />
+      </View>
     </SafeAreaView>
   );
 };
@@ -117,11 +132,26 @@ const styles = StyleSheet.create({
     marginHorizontal: 4,
     paddingHorizontal: 4,
   },
-  bookImage: { width: 128, height: 160, borderRadius: 10, backgroundColor: '#EEE' },
+  bookImage: {
+    width: 128,
+    height: 160,
+    borderRadius: 10,
+    backgroundColor: '#EEE',
+  },
   bookTitle: { marginTop: 8, color: '#1A1A1A', fontWeight: '600' },
   bookPrice: { marginTop: 4, color: '#54408C', fontWeight: '700' },
-  dotsRowSmall: { flexDirection: 'row', justifyContent: 'center', marginTop: 8 },
-  dotSmall: { width: 5, height: 5, borderRadius: 2.5, backgroundColor: '#D6CFF0', marginHorizontal: 3 },
+  dotsRowSmall: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 8,
+  },
+  dotSmall: {
+    width: 5,
+    height: 5,
+    borderRadius: 2.5,
+    backgroundColor: '#D6CFF0',
+    marginHorizontal: 3,
+  },
   dotSmallActive: { backgroundColor: '#6B58B8' },
 });
 
