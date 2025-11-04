@@ -3,7 +3,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import OfferSlider from '../components/OfferSlider';
 import TopOfWeek from '../components/TopOfWeek';
-import {offers, topOfWeek} from '../data/homeData';
+import BestVendors from '../components/BestVendors';
+import Authors from '../components/Authors';
+import {offers, topOfWeek, bestVendors, authors} from '../data/homeData';
 
 const Home = ({ navigation }) => {
 
@@ -24,7 +26,12 @@ const Home = ({ navigation }) => {
       <OfferSlider offers={offers} />
 
       {/* Top of Week */}
-      <TopOfWeek items={topOfWeek} onSeeAll={() => {}} />
+      <TopOfWeek items={topOfWeek} onSeeAll={() => navigation.navigate('Home')} />
+      {/* Best Vendors */}
+      <BestVendors vendors={bestVendors} onSeeAll={() => navigation.navigate('Vendors')} />
+      {/* Authors */}
+      <Authors authors={authors} onSeeAll={() => navigation.navigate('Authors')} />
+        
     </SafeAreaView>
   );
 };

@@ -1,19 +1,21 @@
 import * as React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import OnboardingScreen from './src/onboarding/Onboarding';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SignIn from './src/screens/SignIn';
 import SignUp from './src/screens/SignUp';
 import ForgotPassword from './src/screens/ForgotPassword';
 import Verification from './src/screens/Verification';
 import ResetPassword from './src/screens/ResetPassword';
 import Congratulations from './src/screens/Congratulations';
-import {enableScreens} from 'react-native-screens';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
+import { enableScreens } from 'react-native-screens';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Home from './src/screens/Home';
+import VendorsScreen from './src/screens/Vendors';
+import AuthorsScreen from './src/screens/Authors';
 
 enableScreens(true);
 
@@ -45,13 +47,13 @@ const App = () => {
         // ignore
       } finally {
         setLoading(false);
-        RNBootSplash.hide({fade: true});
+        RNBootSplash.hide({ fade: true });
       }
     };
     init();
   }, []);
 
-  const handleOnboardingDone = async (navigation) => {
+  const handleOnboardingDone = async navigation => {
     try {
       await AsyncStorage.setItem(SEEN_KEY, 'true');
     } catch (e) {
@@ -61,7 +63,7 @@ const App = () => {
     navigation.replace('SignIn');
   };
 
-  const handleSignIn = (navigation) => {
+  const handleSignIn = navigation => {
     navigation.navigate('SignIn');
   };
   if (loading) {
@@ -73,9 +75,10 @@ const App = () => {
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName={'Onboarding'}
-          screenOptions={{headerShown: false}}>
+          screenOptions={{ headerShown: false }}
+        >
           <Stack.Screen name="Onboarding">
-            {({navigation}) => (
+            {({ navigation }) => (
               <OnboardingScreen
                 onSkip={() => handleOnboardingDone(navigation)}
                 onDone={() => handleOnboardingDone(navigation)}
@@ -85,45 +88,82 @@ const App = () => {
           </Stack.Screen>
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen
+            name="Vendors"
+            component={VendorsScreen}
+            options={{ headerShown: false, title: 'Best Vendors', headerTintColor: '#54408C' }}
+          />
+          <Stack.Screen
+            name="Authors"
+            component={AuthorsScreen}
+            options={{ headerShown: true, title: 'Authors', headerTintColor: '#54408C' }}
+          />
+          <Stack.Screen
             name="SignIn"
             component={SignIn}
-            options={{headerShown: true, title: 'Sign In', headerTintColor: '#54408C'}}
+            options={{
+              headerShown: true,
+              title: 'Sign In',
+              headerTintColor: '#54408C',
+            }}
           />
           <Stack.Screen
             name="SignUp"
             component={SignUp}
-            options={{headerShown: true, title: 'Sign Up', headerTintColor: '#54408C'}}
+            options={{
+              headerShown: true,
+              title: 'Sign Up',
+              headerTintColor: '#54408C',
+            }}
           />
           <Stack.Screen
             name="ForgotPassword"
             component={ForgotPassword}
-            options={{headerShown: true, title: 'Forgot Password', headerTintColor: '#54408C'}}
+            options={{
+              headerShown: true,
+              title: 'Forgot Password',
+              headerTintColor: '#54408C',
+            }}
           />
           <Stack.Screen
             name="Verification"
             component={Verification}
-            options={{headerShown: true, title: 'Verification', headerTintColor: '#54408C'}}
+            options={{
+              headerShown: true,
+              title: 'Verification',
+              headerTintColor: '#54408C',
+            }}
           />
           <Stack.Screen
             name="ResetPassword"
             component={ResetPassword}
-            options={{headerShown: true, title: 'Reset Password', headerTintColor: '#54408C'}}
+            options={{
+              headerShown: true,
+              title: 'Reset Password',
+              headerTintColor: '#54408C',
+            }}
           />
           <Stack.Screen
             name="Congratulations"
             component={Congratulations}
-            options={{headerShown: true, title: 'Success', headerTintColor: '#54408C'}}
+            options={{
+              headerShown: true,
+              title: 'Success',
+              headerTintColor: '#54408C',
+            }}
           />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
   );
-}
-;
-
+};
 const styles = StyleSheet.create({
-  container: {flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff'},
-  text: {fontSize: 20, fontWeight: 'bold', color: '#000'},
-  
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+  text: { fontSize: 20, fontWeight: 'bold', color: '#000' },
 });
+
 export default App;

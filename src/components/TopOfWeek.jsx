@@ -39,11 +39,11 @@ const TopOfWeek = ({items = [], onSeeAll}) => {
           </View>
         )}
       />
-      <View style={styles.dotsRowSmall}>
+      {/* <View style={styles.dotsRowSmall}>
         {items.map((_, i) => (
           <View key={i} style={[styles.dotSmall, i === active && styles.dotSmallActive]} />
         ))}
-      </View>
+      </View> */}
     </View>
   );
 };

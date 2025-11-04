@@ -16,3 +16,23 @@ export const topOfWeek = [
   { id: 't8', title: 'Deep Work', price: 19.5, image: require('../../assets/b1.png') },
   { id: 't9', title: 'Deep Work', price: 19.5, image: require('../../assets/b3.png') },
 ];
+
+export const bestVendors = [
+  { id: 'v1', name: 'Wattpad', rating: 4, logo: require('../../assets/v1.png') },
+  { id: 'v2', name: 'Kuromi', rating: 5, logo: require('../../assets/v2.png') },
+  { id: 'v3', name: 'Crane & Co', rating: 4, logo: require('../../assets/v3.png') },
+  { id: 'v4', name: 'GoodDay', rating: 5, logo: require('../../assets/v4.png') },
+  { id: 'v5', name: 'Warehouse', rating: 4, logo: require('../../assets/v5.png') },
+  { id: 'v6', name: 'Peppa Pig', rating: 5, logo: require('../../assets/v6.png') },
+  { id: 'v7', name: 'JSTOR', rating: 4, logo: require('../../assets/v7.png') },
+  { id: 'v8', name: 'Peloton', rating: 4, logo: require('../../assets/v8.png') },
+  { id: 'v9', name: 'Haymarket', rating: 5, logo: require('../../assets/v1.png') },
+];
+
+export const authors = [
+  { id: 'a1', name: 'John Freeman', role: 'Writer', avatar: require('../../assets/b1.png') },
+  { id: 'a2', name: 'Tess Gunty', role: 'Novelist', avatar: require('../../assets/b2.png') },
+  { id: 'a3', name: 'Richard Perry', role: 'Writer', avatar: require('../../assets/b3.png') },
+  { id: 'a4', name: 'Maya Lee', role: 'Author', avatar: require('../../assets/b4.png') },
+  { id: 'a5', name: 'Alex Chen', role: 'Writer', avatar: require('../../assets/b5.png') },
+];
