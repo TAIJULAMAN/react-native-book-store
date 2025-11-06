@@ -1,4 +1,4 @@
-package com.appname
+package com.shahaman.appname
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate

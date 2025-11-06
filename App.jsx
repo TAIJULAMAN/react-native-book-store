@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import OnboardingScreen from './src/onboarding/Onboarding';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import SignIn from './src/screens/SignIn';
 import SignUp from './src/screens/SignUp';
 import ForgotPassword from './src/screens/ForgotPassword';
@@ -26,6 +27,29 @@ const App = () => {
   const [loading, setLoading] = React.useState(true);
   const [hasSeenOnboarding, setHasSeenOnboarding] = React.useState(false);
   const Stack = createNativeStackNavigator();
+  const Tab = createBottomTabNavigator();
+
+  const TabNavigator = () => (
+    <Tab.Navigator
+      screenOptions={{
+        tabBarActiveTintColor: '#54408C',
+        tabBarInactiveTintColor: 'gray',
+        headerShown: false,
+      }}
+    >
+      <Tab.Screen name="HomeTab" component={Home} options={{ title: 'Home' }} />
+      <Tab.Screen
+        name="VendorsTab"
+        component={VendorsScreen}
+        options={{ title: 'Vendors' }}
+      />
+      <Tab.Screen
+        name="AuthorsTab"
+        component={AuthorsScreen}
+        options={{ title: 'Authors' }}
+      />
+    </Tab.Navigator>
+  );
   const ONBOARDING_VERSION = '2';
   const SEEN_KEY = 'hasSeenOnboarding';
   const VERSION_KEY = 'onboarding_version';
@@ -39,7 +63,6 @@ const App = () => {
         ]);
 
         if (version !== ONBOARDING_VERSION) {
-          // New onboarding content/version: show it once
           await AsyncStorage.setItem(VERSION_KEY, ONBOARDING_VERSION);
           await AsyncStorage.removeItem(SEEN_KEY);
           setHasSeenOnboarding(false);
@@ -63,7 +86,17 @@ const App = () => {
       // ignore
     }
     setHasSeenOnboarding(true);
-    navigation.replace('SignIn');
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'SignIn' }],
+    });
+  };
+
+  const handleSignInSuccess = navigation => {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'MainTabs' }],
+    });
   };
 
   const handleSignIn = navigation => {
@@ -89,41 +122,34 @@ const App = () => {
               />
             )}
           </Stack.Screen>
-          <Stack.Screen name="Home" component={Home} />
           <Stack.Screen
-            name="Vendors"
-            component={VendorsScreen}
-            options={{ headerShown: false, title: 'Best Vendors', headerTintColor: '#54408C' }}
-          />
-          <Stack.Screen
-            name="Authors"
-            component={AuthorsScreen}
-            options={{ headerShown: true, title: 'Authors', headerTintColor: '#54408C' }}
-          />
-          <Stack.Screen
-            name="AuthorDetails"
-            component={AuthorDetails}
-            options={{ headerShown: true, title: 'Author', headerTintColor: '#54408C' }}
+            name="MainTabs"
+            component={TabNavigator}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="VendorDetails"
             component={VendorDetails}
-            options={{ headerShown: true, title: 'Vendor', headerTintColor: '#54408C' }}
+            options={{
+              headerShown: true,
+              title: 'Vendor',
+              headerTintColor: '#54408C',
+            }}
           />
           <Stack.Screen
             name="BookDetails"
             component={BookDetails}
-            options={{ headerShown: true, title: 'Book', headerTintColor: '#54408C' }}
-          />
-          <Stack.Screen
-            name="SignIn"
-            component={SignIn}
             options={{
               headerShown: true,
-              title: 'Sign In',
+              title: 'Book',
               headerTintColor: '#54408C',
             }}
           />
+          <Stack.Screen name="SignIn">
+            {({ navigation }) => (
+              <SignIn onSignInSuccess={() => handleSignInSuccess(navigation)} />
+            )}
+          </Stack.Screen>
           <Stack.Screen
             name="SignUp"
             component={SignUp}
