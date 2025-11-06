@@ -2,13 +2,19 @@ import React from 'react';
 import {Text, StyleSheet, TextInput, TouchableOpacity, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
-const SignIn = ({navigation}) => {
+const SignIn = ({ navigation, onSignInSuccess }) => {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Sign In</Text>
       <TextInput style={styles.input} placeholder="Email" keyboardType="email-address" autoCapitalize="none" />
       <TextInput style={styles.input} placeholder="Password" secureTextEntry />
-      <TouchableOpacity style={styles.button} onPress={() => navigation.replace('Home')}>
+      <TouchableOpacity 
+        style={styles.button} 
+        onPress={() => {
+          // Handle your sign in logic here
+          // On successful sign in, call:
+          onSignInSuccess();
+        }}>
         <Text style={styles.buttonText}>Sign In</Text>
       </TouchableOpacity>
       <View style={{height: 12}} />

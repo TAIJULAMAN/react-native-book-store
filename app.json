@@ -1,4 +1,13 @@
 {
   "name": "AppName",
-  "displayName": "AppName"
+  "displayName": "AppName",
+  "android": {
+    "package": "com.shahaman.appname"
+  },
+  "extra": {
+    "eas": {
+      "projectId": "0f605d08-b33e-4585-a403-779b482bd3b1"
+    }
+  },
+  "owner": "shahaman"
 }

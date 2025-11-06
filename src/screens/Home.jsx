@@ -1,16 +1,23 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 import OfferSlider from '../components/OfferSlider';
 import TopOfWeek from '../components/TopOfWeek';
 import BestVendors from '../components/BestVendors';
 import Authors from '../components/Authors';
 import { offers, topOfWeek, bestVendors, authors } from '../data/homeData';
+ 
 
 const Home = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header */}
+      {/* Header - Fixed at the top */}
       <View style={styles.header}>
         <TouchableOpacity style={styles.iconBtn} onPress={() => {}}>
           <Text style={styles.iconTxt}>🔍</Text>
@@ -21,39 +28,61 @@ const Home = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-      {/* Special Offer Slider */}
-      <View style={{ marginTop: 16 }}>
-        <OfferSlider offers={offers} />
-      </View>
+      {/* Scrollable Content */}
+      <ScrollView
+        style={styles.scrollView}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.scrollContent}
+      >
+        {/* Special Offer Slider */}
+        <View style={styles.section}>
+          <OfferSlider offers={offers} />
+        </View>
 
-      {/* Top of Week */}
-      <View style={{ marginTop: 16 }}>
-        <TopOfWeek
-          items={topOfWeek}
-          onSeeAll={() => navigation.navigate('Home')}
-          onItemPress={(book) => navigation.navigate('BookDetails', { book })}
-        />
-      </View>
-      {/* Best Vendors */}
-      <View style={{ marginTop: 16 }}>
-        <BestVendors
-          vendors={bestVendors}
-          onSeeAll={() => navigation.navigate('Vendors')}
-        />
-      </View>
-      {/* Authors */}
-      <View style={{ marginTop: 16 }}>
-        <Authors
-          authors={authors}
-          onSeeAll={() => navigation.navigate('Authors')}
-        />
-      </View>
+        {/* Top of Week */}
+        <View style={styles.section}>
+          <TopOfWeek
+            items={topOfWeek}
+            onSeeAll={() => navigation.navigate('HomeTab')}
+            onItemPress={book => navigation.navigate('BookDetails', { book })}
+          />
+        </View>
+
+        {/* Best Vendors */}
+        <View style={styles.section}>
+          <BestVendors
+            vendors={bestVendors}
+            onSeeAll={() => navigation.navigate('VendorsTab')}
+          />
+        </View>
+
+        {/* Authors */}
+        <View style={[styles.section, { marginBottom: 16 }]}>
+          <Authors
+            authors={authors}
+            onSeeAll={() => navigation.navigate('AuthorsTab')}
+          />
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#FFFFFF' },
+  container: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+  },
+  scrollView: {
+    flex: 1,
+  },
+  scrollContent: {
+    paddingBottom: 16,
+  },
+  section: {
+    marginTop: 16,
+    paddingHorizontal: 16,
+  },
   header: {
     paddingHorizontal: 16,
     paddingTop: 6,

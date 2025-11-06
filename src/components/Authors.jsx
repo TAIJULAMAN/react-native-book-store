@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from 'react
 
 const Authors = ({ authors = [], onSeeAll }) => {
   return (
-    <View>
+    <View style={{ marginBottom: 16 }}>
       <View style={styles.sectionHeader}>
         <Text style={styles.sectionTitle}>Authors</Text>
         <TouchableOpacity onPress={onSeeAll}>

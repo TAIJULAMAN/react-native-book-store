@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const BookDetails = ({ route }) => {
+const BookDetails = ({ route, navigation }) => {
   const book = route?.params?.book || {};
   const [fav, setFav] = React.useState(false);
   const [qty, setQty] = React.useState(1);
@@ -73,10 +73,13 @@ const BookDetails = ({ route }) => {
         </View>
 
         <View style={styles.actions}>
-          <TouchableOpacity style={[styles.actionBtn, styles.primaryBtn]}>
+          <TouchableOpacity style={[styles.actionBtn, styles.primaryBtn]} onPress={() => navigation.goBack()}>
             <Text style={styles.primaryTxt}>Continue shopping</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.actionBtn, styles.secondaryBtn]}>
+          <TouchableOpacity
+            style={[styles.actionBtn, styles.secondaryBtn]}
+            onPress={() => navigation.navigate('Cart', { book, qty })}
+          >
             <Text style={styles.secondaryTxt}>View cart</Text>
           </TouchableOpacity>
         </View>
